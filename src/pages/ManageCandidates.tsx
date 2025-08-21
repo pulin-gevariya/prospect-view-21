@@ -117,7 +117,9 @@ const ManageCandidates: React.FC = () => {
         return;
       }
 
+      console.log('Sending candidate data:', toLite(values));
       const res = await createCandidate(toLite(values));
+      console.log('Create response:', res);
       if ((res as any).success === false) throw new Error((res as any).message || "Failed");
       toast({
         title: "Candidate added",
@@ -147,10 +149,12 @@ const ManageCandidates: React.FC = () => {
   const saveEdit = async (values: FormValues, original: FormValues) => {
     setSavingEdit(true);
     try {
+      console.log('Updating candidate data:', toLite(values));
       const res = await updateCandidate({
         keyName: original.Name,
         keyEmail: original.Email
       }, toLite(values));
+      console.log('Update response:', res);
       if ((res as any).success === false) throw new Error((res as any).message || "Failed");
 
       toast({
