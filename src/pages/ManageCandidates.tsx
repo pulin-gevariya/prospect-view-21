@@ -15,7 +15,7 @@ import { toast } from "@/hooks/use-toast";
 import { useCandidateData } from "@/hooks/useCandidateData";
 import { createCandidate, updateCandidate, deleteCandidate } from "@/lib/sheetsApi";
 import { Pencil, Trash2, Plus, RefreshCcw, Loader2 } from "lucide-react";
-import { getLocalTimestamp, setLocalTimestamp, removeLocalTimestamp, overwriteLocalTimestamp } from "@/lib/localTimestamps";
+
 const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 const phoneRegex = /^\d{8,15}$/; // numeric only, no spaces, 8-15 digits
 
@@ -26,11 +26,29 @@ const formSchema = z.object({
   "Job Role Admin": z.string().trim().min(1, "Job Role Admin is required")
 });
 type FormValues = z.infer<typeof formSchema>;
+
+const formatDateTime = () => {
+  const now = new Date();
+  const day = now.getDate();
+  const month = now.getMonth() + 1;
+  const year = now.getFullYear();
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const formattedSeconds = seconds.toString().padStart(2, '0');
+  return `${day}/${month}/${year}, ${hours}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
+};
+
 const toLite = (v: FormValues) => ({
   Name: v.Name,
   Email: v.Email,
   "Phone Number": v["Phone Number"],
-  "Job Role Admin": v["Job Role Admin"]
+  "Job Role Admin": v["Job Role Admin"],
+  Datetime: formatDateTime()
 });
 const ManageCandidates: React.FC = () => {
   const {
@@ -99,19 +117,8 @@ const ManageCandidates: React.FC = () => {
         return;
       }
 
-      const istNow = new Date().toLocaleString('en-IN', {
-        timeZone: 'Asia/Kolkata',
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-      });
       const res = await createCandidate(toLite(values));
       if ((res as any).success === false) throw new Error((res as any).message || "Failed");
-      setLocalTimestamp(values.Name, values.Email, istNow);
       toast({
         title: "Candidate added",
         description: "The candidate was saved successfully."
@@ -146,28 +153,6 @@ const ManageCandidates: React.FC = () => {
       }, toLite(values));
       if ((res as any).success === false) throw new Error((res as any).message || "Failed");
 
-      const nameChanged = original.Name !== values.Name;
-      const emailChanged = original.Email !== values.Email;
-      const phoneChanged = original["Phone Number"] !== values["Phone Number"];
-      const roleChanged = original["Job Role Admin"] !== values["Job Role Admin"];
-      const anyChanged = nameChanged || emailChanged || phoneChanged || roleChanged;
-      if (anyChanged) {
-        const istNow = new Date().toLocaleString('en-IN', {
-          timeZone: 'Asia/Kolkata',
-          year: 'numeric',
-          month: 'numeric',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true,
-        });
-        if (nameChanged || emailChanged) {
-          removeLocalTimestamp(original.Name, original.Email);
-        }
-        overwriteLocalTimestamp(values.Name, values.Email, istNow);
-      }
-
       toast({
         title: "Candidate updated",
         description: "Changes were saved."
@@ -192,7 +177,7 @@ const ManageCandidates: React.FC = () => {
         keyEmail: row.Email
       });
       if ((res as any).success === false) throw new Error((res as any).message || "Failed");
-      removeLocalTimestamp(row.Name, row.Email);
+      
       toast({
         title: "Candidate deleted",
         description: "The record was removed."
@@ -307,7 +292,7 @@ const ManageCandidates: React.FC = () => {
                   <TableHead>Email</TableHead>
                   <TableHead>Phone Number</TableHead>
                   <TableHead>Job Role Admin</TableHead>
-                  <TableHead>Date and Time</TableHead>
+                  <TableHead>Datetime</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -334,7 +319,7 @@ const ManageCandidates: React.FC = () => {
                     <TableCell className="truncate max-w-[240px]">{row.Email}</TableCell>
                     <TableCell>{row["Phone Number"]}</TableCell>
                     <TableCell>{row["Job Role Admin"]}</TableCell>
-                    <TableCell>{getLocalTimestamp(row.Name, row.Email) || "-"}</TableCell>
+                    <TableCell>{row.Datetime || "-"}</TableCell>
                     <TableCell>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         row["Interview Status"] || row["Interview Scheduled"] || row["Interview Date"] ? 

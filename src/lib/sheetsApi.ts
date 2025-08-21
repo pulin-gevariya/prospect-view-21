@@ -5,6 +5,7 @@ export type CandidateLite = {
   Email: string;
   "Phone Number": string;
   "Job Role Admin": string;
+  Datetime: string;
 };
 
 export type UpdateKey = { keyName: string; keyEmail: string };
