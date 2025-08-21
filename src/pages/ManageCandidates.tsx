@@ -84,6 +84,21 @@ const ManageCandidates: React.FC = () => {
   const onSubmit = async (values: FormValues) => {
     setCreating(true);
     try {
+      // Check for duplicate name and email combination
+      const isDuplicate = candidates.some(candidate => 
+        candidate.Name?.toLowerCase().trim() === values.Name.toLowerCase().trim() &&
+        candidate.Email?.toLowerCase().trim() === values.Email.toLowerCase().trim()
+      );
+
+      if (isDuplicate) {
+        toast({
+          title: "Duplicate candidate",
+          description: "A candidate with this name and email combination already exists.",
+          variant: "destructive"
+        });
+        return;
+      }
+
       const istNow = new Date().toLocaleString('en-IN', {
         timeZone: 'Asia/Kolkata',
         year: 'numeric',
