@@ -308,6 +308,7 @@ const ManageCandidates: React.FC = () => {
                   <TableHead>Phone Number</TableHead>
                   <TableHead>Job Role Admin</TableHead>
                   <TableHead>Date and Time</TableHead>
+                  <TableHead>Status</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -320,6 +321,7 @@ const ManageCandidates: React.FC = () => {
                         <TableCell><Skeleton className="h-4 w-28" /></TableCell>
                         <TableCell><Skeleton className="h-4 w-24" /></TableCell>
                         <TableCell><Skeleton className="h-4 w-40" /></TableCell>
+                        <TableCell><Skeleton className="h-4 w-20" /></TableCell>
                         <TableCell className="text-right">
                           <Skeleton className="h-8 w-24 ml-auto" />
                         </TableCell>
@@ -333,6 +335,15 @@ const ManageCandidates: React.FC = () => {
                     <TableCell>{row["Phone Number"]}</TableCell>
                     <TableCell>{row["Job Role Admin"]}</TableCell>
                     <TableCell>{getLocalTimestamp(row.Name, row.Email) || "-"}</TableCell>
+                    <TableCell>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        row["Interview Status"] || row["Interview Scheduled"] || row["Interview Date"] ? 
+                        'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' : 
+                        'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+                      }`}>
+                        {row["Interview Status"] || row["Interview Scheduled"] || row["Interview Date"] ? 'Completed' : 'Pending'}
+                      </span>
+                    </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
                         <Dialog open={openEdit && editing?.Email === row.Email && editing?.Name === row.Name} onOpenChange={o => !o && setOpenEdit(false)}>
@@ -392,7 +403,7 @@ const ManageCandidates: React.FC = () => {
                 ))}
                 {!loading && candidates.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center text-muted-foreground">
+                    <TableCell colSpan={7} className="text-center text-muted-foreground">
                       No candidates found.
                     </TableCell>
                   </TableRow>
