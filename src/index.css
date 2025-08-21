@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Professional Dashboard Design System - Light, Clean, Modern */
+
+@layer base {
+  :root {
+    /* Background & Surface Colors */
+    --background: 220 15% 97%;
+    --foreground: 220 15% 15%;
+    --surface: 0 0% 100%;
+    --surface-hover: 220 15% 98%;
+
+    /* Card & Container Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+    --card-border: 220 15% 92%;
+
+    /* Popover & Dropdown Colors */
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+
+    /* Primary Brand Colors - Professional Blue */
+    --primary: 215 85% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 215 85% 55%;
+    --primary-light: 215 85% 95%;
+
+    /* Secondary & Neutral Colors */
+    --secondary: 220 15% 96%;
+    --secondary-foreground: 220 15% 25%;
+    --secondary-hover: 220 15% 94%;
+
+    /* Muted Colors for Less Important Content */
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 10% 50%;
+
+    /* Accent Colors for Highlights */
+    --accent: 220 15% 96%;
+    --accent-foreground: 220 15% 25%;
+
+    /* Status & Feedback Colors */
+    --success: 145 65% 50%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 145 65% 95%;
+    
+    --warning: 35 100% 55%;
+    --warning-foreground: 0 0% 100%;
+    --warning-light: 35 100% 95%;
+    
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-light: 0 75% 95%;
+
+    /* Border & Input Colors */
+    --border: 220 15% 88%;
+    --border-hover: 220 15% 80%;
+    --input: 220 15% 88%;
+    --input-focus: 215 85% 60%;
+    --ring: 215 85% 60%;
+
+    /* Shadows & Effects */
+    --shadow-sm: 0 1px 2px 0 hsl(220 15% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(220 15% 15% / 0.1), 0 2px 4px -1px hsl(220 15% 15% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(220 15% 15% / 0.1), 0 4px 6px -2px hsl(220 15% 15% / 0.05);
+    --shadow-glow: 0 0 0 3px hsl(215 85% 60% / 0.1);
+
+    /* Animations & Transitions */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.25s ease-out;
+    --transition-slow: 0.35s ease-out;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
