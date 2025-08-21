@@ -214,9 +214,9 @@ export const CandidateDetails: React.FC<CandidateDetailsProps> = ({ candidate })
             <p className="text-muted-foreground mb-3">
               {candidate.Email || 'No email provided'}
             </p>
-            {candidate['Job Role Candidate'] && (
+            {candidate['Job Role Admin'] && (
               <Badge variant="secondary" className="text-xs">
-                {candidate['Job Role Candidate']}
+                {candidate['Job Role Admin']}
               </Badge>
             )}
           </div>
@@ -226,7 +226,7 @@ export const CandidateDetails: React.FC<CandidateDetailsProps> = ({ candidate })
       {/* Details Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filledFields.map(([fieldName, value]) => {
-          if (fieldName === 'Name' || fieldName === 'Email' || fieldName === 'Job Role Candidate') {
+          if (fieldName === 'Name' || fieldName === 'Email' || fieldName === 'Job Role Admin') {
             return null; // Skip fields already shown in header
           }
 
