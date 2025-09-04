@@ -296,7 +296,6 @@ const ManageCandidates: React.FC = () => {
                   <TableHead>Email</TableHead>
                   <TableHead>Phone Number</TableHead>
                   <TableHead>Job Role Admin</TableHead>
-                  <TableHead>Datetime</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -309,7 +308,6 @@ const ManageCandidates: React.FC = () => {
                         <TableCell><Skeleton className="h-4 w-52" /></TableCell>
                         <TableCell><Skeleton className="h-4 w-28" /></TableCell>
                         <TableCell><Skeleton className="h-4 w-24" /></TableCell>
-                        <TableCell><Skeleton className="h-4 w-40" /></TableCell>
                         <TableCell><Skeleton className="h-4 w-20" /></TableCell>
                         <TableCell className="text-right">
                           <Skeleton className="h-8 w-24 ml-auto" />
@@ -323,7 +321,6 @@ const ManageCandidates: React.FC = () => {
                     <TableCell className="truncate max-w-[240px]">{row.Email}</TableCell>
                     <TableCell>{row["Phone Number"]}</TableCell>
                     <TableCell>{row["Job Role Admin"]}</TableCell>
-                    <TableCell>{row.Datetime || "-"}</TableCell>
                     <TableCell>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         row["Interview Status"] || row["Interview Scheduled"] || row["Interview Date"] ? 
@@ -392,7 +389,7 @@ const ManageCandidates: React.FC = () => {
                 ))}
                 {!loading && candidates.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={7} className="text-center text-muted-foreground">
+                    <TableCell colSpan={6} className="text-center text-muted-foreground">
                       No candidates found.
                     </TableCell>
                   </TableRow>
